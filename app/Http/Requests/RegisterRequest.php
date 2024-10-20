@@ -6,21 +6,21 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'name.required' => __('auth.name_required'),

@@ -3,17 +3,17 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use App\Models\User;
 use Illuminate\Validation\ValidationException;
+use App\Models\User;
 
 class LoginRequest extends FormRequest
 {
-    public function authorize()
+    public function authorize(): bool
     {
-        return true; // Allow all users to make this request
+        return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'email' => 'required|email',
@@ -21,7 +21,7 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'email.required' => __('auth.email_required'),
@@ -31,14 +31,14 @@ class LoginRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $this->merge([
             'email' => trim($this->email),
         ]);
     }
 
-    public function validateResolved()
+    public function validateResolved(): void
     {
         parent::validateResolved();
 
