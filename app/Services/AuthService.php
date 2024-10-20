@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
+
 class AuthService
 {
     public function login(array $credentials): ?string
@@ -15,6 +16,7 @@ class AuthService
 
     public function register(array $data): User
     {
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -25,5 +27,15 @@ class AuthService
     public function getToken(User $user): string
     {
         return JWTAuth::fromUser($user);
+    }
+
+    public function getAuthenticatedUser(): ?User
+    {
+        return JWTAuth::parseToken()->authenticate();
+    }
+
+    public function logout(): void
+    {
+        JWTAuth::invalidate(JWTAuth::getToken());
     }
 }
