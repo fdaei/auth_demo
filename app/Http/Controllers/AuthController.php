@@ -16,7 +16,7 @@ class AuthController extends Controller
     {
         $this->authService = $authService;
     }
-
+   // TODO: Consider the scenario where the token is valid but user access is revoked in the future.
     public function login(LoginRequest $request): \Illuminate\Http\JsonResponse
     {
 
